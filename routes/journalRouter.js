@@ -9,6 +9,6 @@ const {
 }=require("../Controller/journal")
 
 router.route("/").get(getJournals).post(createJournal);
-router.route("/:journalId").get(getsingleJournal).patch(updateJournals).delete(deleteJournal);
+router.route("/:jobId").get(getsingleJournal).patch(updateJournals).delete(deleteJournal);
 
 module.exports = router

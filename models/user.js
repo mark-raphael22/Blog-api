@@ -23,6 +23,8 @@ const userSchema= new mongoose.Schema({
     }
 })
 
+
+//using a function expression
 userSchema.pre('save', async function (next){
     const salt = await bcrypt.genSalt()
     this.password= await bcrypt.hash(this.password,salt);
@@ -31,12 +33,21 @@ userSchema.pre('save', async function (next){
 })
 
 userSchema.methods.generateToken=function (){
-    return jwt.sign({userId: this._id,name:this.name},process.env.JWT_SECRET,{expiresIn:"3d"})
+    return jwt.sign({userId: this._id,name:this.name}, process.env.JWT_SECRET,{expiresIn:"3d"})
 
-}
+} 
 
 userSchema.methods.comparePassword = async function (userPassword){
     const iscorrect = await bcrypt.compare(userPassword,this.password)
     return iscorrect
 }
 module.exports= mongoose.model('user',userSchema) 
+
+//userSchema .methids.generateToken()= function(){
+//rreturn jwt .sign({userId:this._id,this.name})
+//}
+// userSchema.methods.comparePassword()=async function(userpasssword){
+//const correct = await bcrypt.compare( userPassword,this.password)
+//rerturn correct
+//}
+
